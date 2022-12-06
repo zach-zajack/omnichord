@@ -47,7 +47,11 @@ function getNote(key) {
 }
 
 function chordDown(key) {
-    data = getNote(key);
+    if(key == " ") {
+        chordSynth.releaseAll();
+        return;
+    }
+    var data = getNote(key);
     document.querySelectorAll(".key.active").forEach((activekey) => activekey.classList.remove("active"));
     document.querySelector(`#${data.id}`).classList.add("active");
     
@@ -59,20 +63,20 @@ function chordDown(key) {
     
     if(JSON.stringify(currentChord) == JSON.stringify(chord)) return;
     currentChord = chord;
-    console.log(document.getElementById("auto-release").checked);
-    if(!auto_release) chordSynth.releaseAll();
+    if(!document.getElementById("auto-release").checked)
+        chordSynth.releaseAll();
 
     var chord_vol = document.getElementById("chordvol").value;
     chordSynth.triggerAttack(chord, "0", chord_vol);
 }
 
 function chordUp(key) {
+    data = getNote(key);
     if(document.getElementById("auto-release").checked) {
         chordSynth.releaseAll();
         currentChord = [];
+        document.querySelector(`#${data.id}`).classList.remove("active");
     }
-    data = getNote(key);
-    document.querySelector(`#${data.id}`).classList.remove("active");
 }
 
 function slider(dir) {
