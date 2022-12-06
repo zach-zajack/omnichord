@@ -78,9 +78,13 @@ function slider(dir) {
     document.querySelectorAll(".sliderbar.active").forEach((slider) => slider.classList.remove("active"));
     document.querySelector(`#slider${currentNoteId}`).classList.add("active");
 
+    playNote(currentNoteId);
+}
+
+function playNote(index) {
     var max = currentChord.length;
-    note = currentChord[currentNoteId % max];
-    note = note.slice(0, -1) + (Math.floor(currentNoteId / max) + 4); // remove octave off note, add octaves
+    note = currentChord[index % max];
+    note = note.slice(0, -1) + (Math.floor(index / max) + 4); // remove octave off note, add octaves
     var harp_vol = document.getElementById("harpvol").value;
     harpSynth.triggerAttackRelease(note, "4n");
 }
@@ -103,6 +107,6 @@ function init() {
     });
 
     document.addEventListener("keydown", (e) => chordDown(e.key));
-    document.addEventListener("keyup", (e) =>  chordUp(e.key));
-    document.addEventListener("wheel", (e) =>  slider(e.wheelDelta));
+    document.addEventListener("keyup", (e) => chordUp(e.key));
+    document.addEventListener("wheel", (e) => slider(e.wheelDelta));
 }

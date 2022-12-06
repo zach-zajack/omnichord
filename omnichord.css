@@ -9,6 +9,8 @@ h1 {
     color:rgb(165, 132, 40); 
 }
 
+p { text-align: center; }
+
 #omnichord-frame {
     margin-left: 100px;
     width: 85vw;
@@ -45,7 +47,7 @@ h1 {
     margin: 10px;
 }
 
-.key:hover, .sliderbar:hover {
+.key:hover {
     filter: brightness(85%);
     cursor:pointer;
 }
@@ -54,8 +56,8 @@ h1 {
     filter: brightness(50%);
 }
 
-.sliderbar:active, .sliderbar.active {
-    filter: brightness(50%);
+.sliderbar:hover, .sliderbar.active {
+    filter: brightness(80%);
     transition: 0.3s;
 }
 
