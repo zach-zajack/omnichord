@@ -59,14 +59,18 @@ function chordDown(key) {
     
     if(JSON.stringify(currentChord) == JSON.stringify(chord)) return;
     currentChord = chord;
+    console.log(document.getElementById("auto-release").checked);
+    if(!auto_release) chordSynth.releaseAll();
 
     var chord_vol = document.getElementById("chordvol").value;
     chordSynth.triggerAttack(chord, "0", chord_vol);
 }
 
 function chordUp(key) {
-    currentChord = [];
-    chordSynth.releaseAll();
+    if(document.getElementById("auto-release").checked) {
+        chordSynth.releaseAll();
+        currentChord = [];
+    }
     data = getNote(key);
     document.querySelector(`#${data.id}`).classList.remove("active");
 }
